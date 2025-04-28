@@ -1,8 +1,11 @@
 const express = require('express');
+require('dotenv').config();
+
 const app = express();
 const productsRoute = require('./routes/products');
 const setupRoute = require('./routes/setup');
 
+console.log('Database Name:', process.env.DB_NAME);
 
 app.use(express.json());
 

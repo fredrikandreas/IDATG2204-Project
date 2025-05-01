@@ -1,0 +1,49 @@
+.navbar {
+    width: 100%;
+    padding: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    height: 50px;
+    width: 39px;
+}
+
+.nav-logo img {
+    height: 100%;
+    width: 100%;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 24px;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    gap: 8px;
+}
+
+.nav-list li {
+    padding: 8px;
+}
+
+.nav-list-link {
+    text-decoration: none;
+    color: black;
+}
+
+.current-page {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.nav-login {
+    border: 1px solid black;
+    display: flex;
+    gap: 12px;
+}

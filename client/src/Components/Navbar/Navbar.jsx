@@ -7,15 +7,15 @@ class Navbar extends Component {
         return (
             <div className='navbar'>
                 <div className='nav-logo'>
-                    <a href=''>
+                    <button className='logo-button'>
                         <img src={logo} alt='nav-logo'/>
-                    </a>
+                    </button>
                 </div>
                 <div className="nav-menu">
                     <ul className='nav-list'>
-                        <li><a className='nav-list-link current-page' href=''>Products</a></li>
-                        <li><a className='nav-list-link' href=''>Search</a></li>
-                        <li><a className='nav-list-link' href=''>Cart</a></li>
+                        <li><button className='nav-list-link current-page'>Products</button></li>
+                        <li><button className='nav-list-link'>Search</button></li>
+                        <li><button className='nav-list-link'>Cart</button></li>
                     </ul>
                     <div className="nav-login">
                         <button>Login</button>

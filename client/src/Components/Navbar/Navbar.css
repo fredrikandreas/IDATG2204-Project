@@ -29,21 +29,41 @@
 }
 
 .nav-list li {
+    display: flex;
+    gap: 8px;
     padding: 8px;
-}
-
-.nav-list-link {
-    text-decoration: none;
-    color: black;
-}
-
-.current-page {
     text-decoration: underline;
     text-underline-offset: 3px;
+    text-decoration-color: white;
+    color: black;
+    transition: all 0.1s ease-in-out;
+}
+
+.nav-list li.current-page {
+    text-decoration-color: black;
+}
+
+.nav-list li:hover {
+    cursor: pointer;
+    text-decoration-color: black;
+}
+
+.nav-cart-count {
+    background-color: #F26B8F;
+    color: white;
+    border-radius: 8px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
 }
 
 .nav-login {
-    border: 1px solid black;
     display: flex;
+    justify-content: space-between;
     gap: 12px;
+    width: 178px;
 }

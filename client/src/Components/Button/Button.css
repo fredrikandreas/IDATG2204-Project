@@ -1,0 +1,33 @@
+button {
+    width: 100%;
+    outline: none;
+    border-radius: 8px;
+    color: white;
+    transition: all 0.1s ease-in-out;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.dark {
+    background-color: #400D37;
+    border: 1px solid #400D37;
+}
+
+/*
+.dark:hover {
+    background-color: #5C124E;
+    border: 1px solid #5C124E;
+}*/
+
+.light {
+    background-color: #0DB3D9;
+    border: 1px solid #0DB3D9;
+}
+
+/*
+.light:hover {
+    background-color: #0B94B3;
+    border: 1px solid #0B94B3;
+}*/

@@ -11,23 +11,27 @@ button:hover {
 }
 
 .dark {
-    background-color: #400D37;
+    background-color: white;
+    color: #400D37;
     border: 1px solid #400D37;
 }
 
-/*
+
 .dark:hover {
-    background-color: #5C124E;
-    border: 1px solid #5C124E;
-}*/
+    color: white;
+    background-color: #400D37;
+    border: 1px solid #400D37;
+}
 
 .light {
     background-color: #0DB3D9;
     border: 1px solid #0DB3D9;
 }
 
-/*
 .light:hover {
     background-color: #0B94B3;
     border: 1px solid #0B94B3;
-}*/
+}
+
+
+

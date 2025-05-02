@@ -1,11 +1,15 @@
 import React from 'react';
 import './Button.css';
+import {useNavigate} from 'react-router-dom';
 
-const Button = ({ type, text }) => {
+const Button = ({ type, text, path }) => {
+    const navigate = useNavigate();
     const className = type === 'dark' ? 'dark' : 'light';
 
     return (
-        <button className={className}>
+        <button className={className} onClick={() => {
+            navigate(path);
+        }}>
             {text}
         </button>
     );

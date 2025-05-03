@@ -1,0 +1,15 @@
+.product-container {
+    border: 1px solid black;
+    width: 325px;
+    height: 375px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.product-image {
+    border: 1px solid black;
+    width: 100%;
+    height: 230px;
+}

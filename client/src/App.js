@@ -6,7 +6,7 @@ import ProductPage from "./Pages/ProductPage";
 import Search from "./Pages/Search";
 import Cart from "./Pages/Cart";
 import Login from "./Pages/Login";
-import SignUp from "./Pages/SignUp";
+import Register from "./Pages/Register";
 
 function App() {
   return (
@@ -14,13 +14,11 @@ function App() {
           <header><Navbar/></header>
           <Routes>
               <Route path="/" element={<Products/>}/>
-              <Route path="/product" element={<ProductPage/>}>
-                  <Route path=":productId" element={<ProductPage/>}/>
-              </Route>
+              <Route path="/product/:productId" element={<ProductPage/>}/>
               <Route path="/search" element={<Search/>}/>
               <Route path="/cart" element={<Cart/>}/>
               <Route path="/login" element={<Login/>}/>
-              <Route path="/signup" element={<SignUp/>}/>
+              <Route path="/register" element={<Register/>}/>
           </Routes>
       </BrowserRouter>
   );

@@ -6,7 +6,7 @@ const ProductItem = ({ image, name, price, quantity }) => {
         <div className="product-container">
             <div className="product-image"></div>
             <div className="product-info">
-                <h1>{name}</h1>
+                <h2>{name}</h2>
                 <h2>{price},-</h2>
                 <h3>{quantity} på lager</h3>
             </div>

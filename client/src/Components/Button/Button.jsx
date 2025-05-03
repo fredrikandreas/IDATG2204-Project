@@ -10,7 +10,7 @@ const Button = ({ type, text, path }) => {
         <button className={className} onClick={() => {
             navigate(path);
         }}>
-            {text}
+            <h3>{text}</h3>
         </button>
     );
 };

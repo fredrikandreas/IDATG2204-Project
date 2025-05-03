@@ -28,5 +28,47 @@
     "name": "TV",
     "price": "1299.90",
     "quantity": 2
+  },
+  {
+    "id": 6,
+    "name": "Watch",
+    "price": "399.90",
+    "quantity": 13
+  },
+  {
+    "id": 7,
+    "name": "Earphones",
+    "price": "299.90",
+    "quantity": 5
+  },
+  {
+    "id": 8,
+    "name": "Speaker",
+    "price": "599.90",
+    "quantity": 8
+  },
+  {
+    "id": 9,
+    "name": "Battery",
+    "price": "99.90",
+    "quantity": 23
+  },
+  {
+    "id": 10,
+    "name": "GPS",
+    "price": "299.90",
+    "quantity": 6
+  },
+  {
+    "id": 11,
+    "name": "Cable",
+    "price": "29.90",
+    "quantity": 45
+  },
+  {
+    "id": 12,
+    "name": "TV",
+    "price": "1899.90",
+    "quantity": 3
   }
 ]

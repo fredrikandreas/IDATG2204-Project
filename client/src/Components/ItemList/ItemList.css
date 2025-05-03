@@ -1,0 +1,23 @@
+.cont {
+    width: 100%;
+    border: 1px solid white;
+}
+
+.item-list-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.item-wrapper {
+    aspect-ratio: 4 / 5;
+    width: 100%;
+}
+
+.info {
+    margin-top: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+}

@@ -1,15 +1,27 @@
 .product-container {
-    border: 1px solid black;
-    width: 325px;
-    height: 375px;
-    padding: 16px;
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 16px;
+    padding: 16px;
+    border-radius: 4px;
+    background-color: var(--secondary-dark);
+    box-sizing: border-box;
 }
 
 .product-image {
-    border: 1px solid black;
+    background-color: var(--secondary-dark);
     width: 100%;
-    height: 230px;
+    flex: 1;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.product-info h3 {
+    color: grey;
 }

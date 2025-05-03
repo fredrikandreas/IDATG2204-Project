@@ -7,7 +7,6 @@ import {Link, useLocation} from "react-router-dom";
 const Navbar = () => {
     const [menu, setMenu] = useState('products');
     const location = useLocation();
-
     useEffect(() => {
         // Update menu based on the current path
         const path = location.pathname;
@@ -26,21 +25,24 @@ const Navbar = () => {
 
     return (
         <div className='navbar'>
+
             <div className='nav-logo'>
                 <Link to={'/'}>
                     <img src={logo} alt='nav-logo'/>
+                    <h1 className='nav-logo-text'>ElectroMart</h1>
                 </Link>
             </div>
+
             <div className='nav-menu'>
                 <ul className='nav-list'>
                     <li>
-                        <Link className={menu === 'products' ? 'nav-link current-page' : 'nav-link'} to={'/'}>Products</Link>
+                        <Link className={menu === 'products' ? 'nav-link current-page' : 'nav-link'} to={'/'}><h3>Products</h3></Link>
                     </li>
                     <li>
-                        <Link className={menu === 'search' ? 'nav-link current-page' : 'nav-link'} to={'/search'}>Search</Link>
+                        <Link className={menu === 'search' ? 'nav-link current-page' : 'nav-link'} to={'/search'}><h3>Search</h3></Link>
                     </li>
                     <li>
-                        <Link className={menu === 'cart' ? 'nav-link current-page' : 'nav-link'} to={'/cart'}>Cart</Link>
+                        <Link className={menu === 'cart' ? 'nav-link current-page' : 'nav-link'} to={'/cart'}><h3>Cart</h3></Link>
                         <div className="nav-cart-count">0</div>
                     </li>
                 </ul>

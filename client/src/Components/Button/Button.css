@@ -1,9 +1,11 @@
 button {
     width: 100%;
+    height: 100%;
     outline: none;
-    border-radius: 8px;
-    color: white;
-    transition: all 0.1s ease-in-out;
+    color: var(--primary-dark);
+    padding: 5px;
+    border: 1px solid;
+    border-radius: 4px;
 }
 
 button:hover {
@@ -11,26 +13,28 @@ button:hover {
 }
 
 .dark {
-    background-color: white;
-    color: #400D37;
-    border: 1px solid #400D37;
+    background-color: var(--secondary-light);
+    color: var(--primary-dark);
+    border-color: var(--secondary-light);
 }
 
 
 .dark:hover {
-    color: white;
-    background-color: #400D37;
-    border: 1px solid #400D37;
+    background-color: var(--transparent);
+    border-color: var(--secondary-light);
+    color: var(--secondary-light);
 }
 
 .light {
-    background-color: #0DB3D9;
-    border: 1px solid #0DB3D9;
+    background-color: var(--transparent);
+    border-color: var(--secondary-light);
+    color: var(--secondary-light);
 }
 
 .light:hover {
-    background-color: #0B94B3;
-    border: 1px solid #0B94B3;
+    background-color: var(--secondary-light);
+    border-color: var(--secondary-light);
+    color: var(--primary-dark);
 }
 
 

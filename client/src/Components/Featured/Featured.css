@@ -1,0 +1,15 @@
+.featured {
+    padding: 0 200px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--primary-dark);
+}
+
+.featured-container {
+    display: flex;
+    flex-direction: row;
+    gap: 64px;
+    padding: 0 32px 0 0;
+    border-radius: 4px;
+}
+

@@ -1,5 +1,5 @@
 .featured {
-    padding: 0 200px;
+    padding: 0 200px 50px 200px;
     display: flex;
     flex-direction: column;
     background-color: var(--primary-dark);

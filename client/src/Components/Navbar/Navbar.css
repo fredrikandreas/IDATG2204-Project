@@ -51,7 +51,7 @@
     align-items: center;
     text-decoration: underline;
     text-underline-offset: 3px;
-    text-decoration-color: var(--primary-dark);
+    text-decoration-color: var(--secondary-dark);
     color: var(--primary-light);
     gap: 8px;
 }

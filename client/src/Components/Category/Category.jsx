@@ -16,7 +16,7 @@ const Category = () => {
     useEffect(() => {
         setMinPrice(minDataPrice);
         setMaxPrice(maxDataPrice);
-    }, [minDataPrice, maxDataPrice]);
+    });
 
     return (
         <div className='category-container'>

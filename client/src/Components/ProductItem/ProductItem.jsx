@@ -1,7 +1,7 @@
 import React from 'react';
 import './ProductItem.css';
 
-const ProductItem = ({ image, name, price, quantity }) => {
+const ProductItem = React.memo(({ image, name, price, quantity }) => {
     return (
         <div className="product-container">
             <div className="product-image"></div>
@@ -11,7 +11,7 @@ const ProductItem = ({ image, name, price, quantity }) => {
                 <h3>{quantity} på lager</h3>
             </div>
         </div>
-    )
-}
+    );
+});
 
 export default ProductItem;

@@ -2,9 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './Navbar.css';
 import logo from '../Assets/Logo.svg';
 import Button from '../Button/Button';
-import {Link, useLocation} from "react-router-dom";
+import {Link, Navigate, useLocation} from "react-router-dom";
+import { logout, isLoggedIn } from '../../utils/auth';
+import { useNavigate } from 'react-router-dom';
+
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const [menu, setMenu] = useState('products');
     const location = useLocation();
     useEffect(() => {
@@ -47,8 +51,14 @@ const Navbar = () => {
                     </li>
                 </ul>
                 <div className='nav-login'>
-                    <Button type='light' text='Login' path='/login'/>
-                    <Button type='dark' text='Register' path='/register'/>
+                    {isLoggedIn() ? (
+                        <Button text="Logout" onClick={() => logout(navigate)} />
+                    ) : (
+                        <>
+                             <Button type='light' text='Login' path='/login' />
+                             <Button type='dark' text='Register' path='/register' />
+                        </>
+                    )}
                 </div>
             </div>
         </div>

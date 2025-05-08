@@ -5,14 +5,13 @@ const setupRoute = require('./routes/setup');
 require('dotenv').config();
 
 const app = express();
+const authRoutes = require("./routes/auth");
+
 app.use(cors()); 
 app.use(express.json());
-console.log('PGHOST:', process.env.PGHOST);
-console.log('PGPORT:', process.env.PGPORT);
-console.log('PGUSER:', process.env.PGUSER);
-console.log('PGPASSWORD:', process.env.PGPASSWORD ? '****' : 'MISSING');
-console.log('PGDATABASE:', process.env.PGDATABASE);
 
+
+app.use("/api", authRoutes);
 
 app.use('/api/products', productsRoute);
 app.use('/api/setup', setupRoute);

@@ -32,7 +32,7 @@
 
 .footer-link {
     color: var(--primary-light);
-    text-decoration-color: var(--primary-dark);
+    text-decoration-color: var(--secondary-dark);
     text-underline-offset: 3px;
 }
 

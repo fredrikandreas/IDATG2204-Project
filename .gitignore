@@ -2,6 +2,9 @@
 
 # dependencies
 /node_modules
+# Node modules
+client/node_modules/
+**/node_modules/
 /.pnp
 .pnp.js
 
@@ -22,3 +25,11 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Cache
+client/node_modules/.cache/
+**/.cache/
+
+# Others (optional)
+.env
+.DS_Store

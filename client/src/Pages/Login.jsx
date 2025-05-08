@@ -14,7 +14,7 @@ const Login = () => {
     if (isLoggedIn()) {
       navigate('/');
     }
-  }, []);
+  }, [navigate]);
 // Handle login
   const handleLogin = async (e) => {
     e.preventDefault();

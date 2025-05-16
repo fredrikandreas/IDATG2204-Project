@@ -1,17 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from "react-router-dom";
 import './ItemList.css';
-import testData from "../Assets/test.json";
 import ProductItem from "../ProductItem/ProductItem";
 import {getAllProducts} from "../../utils/getAllProducts";
 
 export default function ItemList() {
     const containerRef = useRef(null);
-    const itemWidth = 200; // Adjust to your card width + margin
-    const products = getAllProducts();
-
+    const itemWidth = 200;
     const [columns, setColumns] = useState(1);
 
-    // Calculate columns on resize
     useEffect(() => {
         const updateColumns = () => {
             if (!containerRef.current) return;
@@ -24,20 +21,32 @@ export default function ItemList() {
         return () => window.removeEventListener('resize', updateColumns);
     }, []);
 
+    const [productList, setProductList] = useState([]);
+
+    useEffect(() => {
+        async function fetchProducts() {
+            try {
+                const products = await getAllProducts();
+                setProductList(products);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        fetchProducts().then();
+    }, []);
+
     return (
         <div className="cont">
-            <div className="info">ElectroMart - Products</div>
-
             <div className="item-list-container" ref={containerRef}>
-                {testData.map((item, idx) => (
-                    <div className="item-wrapper" key={idx}>
+                {productList.map((item) => (
+                    <Link className="item-wrapper" to={`/product/${item['product_id']}`} key={item['product_id']}>
                         <ProductItem
-                            image={item.image}
-                            name={item.name}
-                            price={parseInt(item.price)}
-                            quantity={item.quantity}
+                            image={`${process.env.REACT_APP_BACKEND}${item['image_url']}`}
+                            name={item['name']}
+                            price={item['price']}
+                            quantity={item['stock_quantity']}
                         />
-                    </div>
+                    </Link>
                 ))}
             </div>
         </div>

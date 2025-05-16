@@ -9,7 +9,7 @@ const Register = () => {
     if (isLoggedIn()) {
       navigate('/');
     }
-  }, []);
+  }, [navigate]);
   // State variables for username, password, and message
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

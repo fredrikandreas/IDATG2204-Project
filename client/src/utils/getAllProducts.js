@@ -1,8 +1,8 @@
-export const getAllProducts = () => {
-    let productList = {};
-    let db_url = process.env.REACT_APP_DB_URL;
-    fetch(db_url)
-        .then(res => res.json())
-        .then(data => data.forEach(product => productList[product['product_id']] = product));
-    return productList;
+export async function getAllProducts() {
+    const backendUrl = `${process.env.REACT_APP_BACKEND}/api/products`;
+    const res = await fetch(backendUrl);
+    if (!res.ok) {
+        throw new Error(`Failed to load products: ${res.status} ${res.statusText}`);
+    }
+    return await res.json();
 }

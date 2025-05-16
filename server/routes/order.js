@@ -92,33 +92,40 @@ router.get('/cart',auth, async (req, res) => {
 });
 
 // Pay for the order
-router.get('/pay',auth, async (req, res) => {
-    const user_id = req.user.id; // Get user_id from the JWT token
-    
-    try {
-        // Find the processing order for the user
-        const orderResult = await db.query(
-        'SELECT order_id FROM "order" WHERE user_id = $1 AND status = $2',
-        [user_id, 'PROCESSING']
-        );
-    
-        if (orderResult.rows.length === 0) {
-        return res.status(404).json({ error: 'No processing order found for this user' });
-        }
-    
-        const order_id = orderResult.rows[0].order_id;
-    
-        // Update the order status to PAID
-        await db.query(
-        'UPDATE "order" SET status = $1 WHERE order_id = $2',
-        ['SHIPPED', order_id]
-        );
-    
-        res.json({ message: 'Order paid successfully' });
-    } catch (error) {
-        console.error('Error processing payment:', error);
-        res.status(500).json({ error: 'DB error' });
+router.get('/pay', auth, async (req, res) => {
+  const user_id = req.user.id; // Get user_id from the JWT token
+
+  try {
+    // Find the processing order for the user
+    const orderResult = await db.query(
+      'SELECT order_id, total_amount FROM "order" WHERE user_id = $1 AND status = $2',
+      [user_id, 'PROCESSING']
+    );
+
+    if (orderResult.rows.length === 0) {
+      return res.status(404).json({ error: 'No processing order found for this user' });
     }
+
+    const order_id = orderResult.rows[0].order_id;
+    const amount = orderResult.rows[0].total_amount;
+
+    // Insert payment record
+    await db.query(
+      'INSERT INTO payment (order_id, amount, payment_method, payment_date, status) VALUES ($1, $2, $3, NOW(), $4)',
+      [order_id, amount, 'manual', 'COMPLETED']
+    );
+
+    // Update the order status to SHIPPED (or PAID if you prefer)
+    await db.query(
+      'UPDATE "order" SET status = $1 WHERE order_id = $2',
+      ['SHIPPED', order_id]
+    );
+
+    res.json({ message: 'Order paid successfully' });
+  } catch (error) {
+    console.error('Error processing payment:', error);
+    res.status(500).json({ error: 'DB error' });
+  }
 });
 
 module.exports = router;

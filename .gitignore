@@ -1,10 +1,10 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
-/node_modules
+.idea
+
 # Node modules
-client/node_modules/
-**/node_modules/
+client/node_modules/*
+server/node_modules/*
 /.pnp
 .pnp.js
 
@@ -29,7 +29,3 @@ yarn-error.log*
 # Cache
 client/node_modules/.cache/
 **/.cache/
-
-# Others (optional)
-.env
-.DS_Store

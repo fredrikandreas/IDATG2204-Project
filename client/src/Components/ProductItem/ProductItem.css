@@ -11,9 +11,12 @@
 }
 
 .product-image {
-    background-color: var(--secondary-dark);
     width: 100%;
     flex: 1;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 4px;
 }
 
 .product-info {

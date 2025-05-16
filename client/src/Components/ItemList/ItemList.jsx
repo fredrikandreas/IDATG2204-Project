@@ -21,7 +21,7 @@ export default function ItemList() {
 
     const [productList, setProductList] = useState([]);
     useEffect(() => {
-        fetch(process.env.REACT_APP_BACKEND + '/products')
+        fetch(process.env.REACT_APP_BACKEND + '/api/products')
             .then(res => res.json())
             .then(data => setProductList(data));
     }, []);
@@ -34,7 +34,7 @@ export default function ItemList() {
                 {productList.map((item, idx) => (
                     <div className="item-wrapper" key={idx}>
                         <ProductItem
-                            image={item['image']}
+                            image={process.env.REACT_APP_BACKEND + item['image_url']}
                             name={item['name']}
                             price={item['price']}
                             quantity={item['stock_quantity']}

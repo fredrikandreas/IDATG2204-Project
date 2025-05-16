@@ -1,16 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './ItemList.css';
-import testData from "../Assets/test.json";
 import ProductItem from "../ProductItem/ProductItem";
-import {getAllProducts} from "../../utils/getAllProducts";
 
 export default function ItemList() {
     const containerRef = useRef(null);
     const itemWidth = 200; // Adjust to your card width + margin
-    const products = getAllProducts();
-
     const [columns, setColumns] = useState(1);
-
     // Calculate columns on resize
     useEffect(() => {
         const updateColumns = () => {
@@ -24,18 +19,25 @@ export default function ItemList() {
         return () => window.removeEventListener('resize', updateColumns);
     }, []);
 
+    const [productList, setProductList] = useState([]);
+    useEffect(() => {
+        fetch(process.env.REACT_APP_BACKEND + '/products')
+            .then(res => res.json())
+            .then(data => setProductList(data));
+    }, []);
+
     return (
         <div className="cont">
             <div className="info">ElectroMart - Products</div>
 
             <div className="item-list-container" ref={containerRef}>
-                {testData.map((item, idx) => (
+                {productList.map((item, idx) => (
                     <div className="item-wrapper" key={idx}>
                         <ProductItem
-                            image={item.image}
-                            name={item.name}
-                            price={parseInt(item.price)}
-                            quantity={item.quantity}
+                            image={item['image']}
+                            name={item['name']}
+                            price={item['price']}
+                            quantity={item['stock_quantity']}
                         />
                     </div>
                 ))}

@@ -12,4 +12,36 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Get product by filter
+
+router.post('/filter', async (req, res) => {
+  const { brand, category, sort } = req.body;
+  let query = 'SELECT * FROM product WHERE 1=1';
+  const params = [];
+  let idx = 1;
+
+  if (brand) {
+    query += ` AND brand_id = $${idx++}`;
+    params.push(brand);
+  }
+  if (category) {
+    query += ` AND category_id = $${idx++}`;
+    params.push(category);
+  }
+
+  if (sort === 'asc') {
+    query += ' ORDER BY price ASC';
+  } else if (sort === 'desc') {
+    query += ' ORDER BY price DESC';
+  }
+
+  try {
+    const result = await db.query(query, params);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error filtering products:', error);
+    res.status(500).json({ error: 'DB error' });
+  }
+});
+
 module.exports = router;

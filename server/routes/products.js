@@ -44,4 +44,19 @@ router.post('/filter', async (req, res) => {
   }
 });
 
+// Get product by id
+router.get('/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await db.query('SELECT * FROM product WHERE product_id = $1', [id]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error('Error fetching product:', error);
+    res.status(500).json({ error: 'DB error' });
+  }
+});
 module.exports = router;

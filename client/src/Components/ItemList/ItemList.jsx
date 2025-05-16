@@ -41,9 +41,11 @@ export default function ItemList() {
                 {productList.map((item) => (
                     <Link className="item-wrapper" to={`/product/${item['product_id']}`} key={item['product_id']}>
                         <ProductItem
+                            dir="column"
                             image={`${process.env.REACT_APP_BACKEND}${item['image_url']}`}
                             name={item['name']}
                             price={item['price']}
+                            description=""
                             quantity={item['stock_quantity']}
                         />
                     </Link>

@@ -10,9 +10,7 @@ export const addToCart = async ({ product_id, quantity, price }) => {
     try {
         const response = await fetch(apiUrl, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: { 'Content-Type': 'application/json', },
             body: JSON.stringify(body),
         });
 

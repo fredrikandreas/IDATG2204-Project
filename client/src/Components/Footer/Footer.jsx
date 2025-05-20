@@ -14,7 +14,6 @@ const Footer = () => {
             <h1>ElectroMart</h1>
             <ul className='footer-list'>
                 <li><Link className='footer-link' to={'/'}><h3>Products</h3></Link></li>
-                <li><Link className='footer-link' to={'/search'}><h3>Search</h3></Link></li>
                 <li><Link className='footer-link' to={'/cart'}><h3>Cart</h3></Link></li>
                 <li><Link className='footer-link' to={'/login'}><h3>Login</h3></Link></li>
                 <li><Link className='footer-link' to={'/register'}><h3>Register</h3></Link></li>

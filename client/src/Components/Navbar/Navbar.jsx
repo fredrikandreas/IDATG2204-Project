@@ -16,8 +16,6 @@ const Navbar = () => {
         const path = location.pathname;
         if (path === '/') {
             setMenu('products');
-        } else if (path === '/search') {
-            setMenu('search');
         } else if (path === '/cart') {
             setMenu('cart');
         } else if (path === '/login') {
@@ -41,9 +39,6 @@ const Navbar = () => {
                 <ul className='nav-list'>
                     <li>
                         <Link className={menu === 'products' ? 'nav-link current-page' : 'nav-link'} to={'/'}><h3>Products</h3></Link>
-                    </li>
-                    <li>
-                        <Link className={menu === 'search' ? 'nav-link current-page' : 'nav-link'} to={'/search'}><h3>Search</h3></Link>
                     </li>
                     <li>
                         <Link className={menu === 'cart' ? 'nav-link current-page' : 'nav-link'} to={'/cart'}><h3>Cart</h3></Link>

@@ -39,3 +39,7 @@
 .footer-link:hover {
     text-decoration-color: var(--primary-light);
 }
+
+.footer h3 {
+    text-align: center;
+}

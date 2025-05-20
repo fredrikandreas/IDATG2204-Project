@@ -24,7 +24,7 @@ export default function ItemList({ productList }) {
         <div className="cont">
             <div className="item-list-container" ref={containerRef}>
                 {productList.length === 0 ? (
-                    <p className="no-results">No products found.</p>
+                    <p className="no-results">Loading...</p>
                 ) : (
                     productList.map((item) => (
                         <Link

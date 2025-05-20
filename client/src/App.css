@@ -10,4 +10,43 @@ Header {
 
 section {
   min-height: 100vh;
+  padding: 50px 200px 100px 200px;
+}
+
+@media (max-width: 1300px) {
+  header {
+    padding: 0 100px;
+  }
+
+  section {
+    padding: 50px 100px 100px 100px;
+  }
+}
+
+@media (max-width: 900px) {
+  header {
+    padding: 0 50px;
+  }
+
+  header h1 {
+    display: none;
+  }
+
+  section {
+    padding: 50px 50px 100px 50px;
+  }
+}
+
+@media (max-width: 700px) {
+  header {
+    padding: 0 10px;
+  }
+
+  section {
+    padding: 50px 10px 100px 10px;
+  }
+
+  section .featured-container {
+    gap: 16px;
+  }
 }

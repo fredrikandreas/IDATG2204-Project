@@ -24,8 +24,10 @@ const Featured = () => {
     return (
         <div className="featured">
             <div className="featured-container">
-                <Category onFilter={handleFilter} />
-                <ItemList productList={products} />
+                <div className="category-sticky">
+                    <Category onFilter={handleFilter}/>
+                </div>
+                <ItemList productList={products}/>
             </div>
         </div>
     );

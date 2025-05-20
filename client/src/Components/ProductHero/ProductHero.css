@@ -5,7 +5,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 200px 200px 0 200px;
     background-color: var(--secondary-dark);
     border-radius: 4px;
 }

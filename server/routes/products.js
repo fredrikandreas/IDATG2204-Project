@@ -16,7 +16,6 @@ router.get('/', async (req, res) => {
 
 router.post('/filter', async (req, res) => {
   const { brand, category, sort } = req.body;
-  console.log("Brand: ", brand, ", Category: ", category, ", Sort: ", sort, "");
 
   let query = 'SELECT * FROM product WHERE 1=1';
   const params = [];

@@ -1,11 +1,17 @@
 export const orderCart = async () => {
-    const apiUrl = `${process.env.REACT_APP_BACKEND}/api/order/pay`;
-    try {
-        const res = await fetch(apiUrl, { method: 'POST' });
-        if (!res.ok) throw new Error('Order failed');
-        return await res.json();
-    } catch (err) {
-        console.error('Order error:', err);
-        return null;
+    const token = localStorage.getItem('token');
+    if (!token) return [];
+
+    const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/order/pay`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            'user_id': localStorage.getItem('user_id'),
+        },
+    });
+    if (!res.ok) {
+        console.error('failed to pay cart, status', res.status);
+        return [];
     }
+    return res.json();
 };

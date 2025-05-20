@@ -14,6 +14,7 @@ export const addToCart = async ({ product_id, quantity, price }) => {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
+                'user_id': localStorage.getItem('user_id'),
             },
             body: JSON.stringify(body),
         });

@@ -6,6 +6,7 @@ export const getCart = async () => {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
+            'user_id': localStorage.getItem('user_id'),
         },
     });
     if (!res.ok) {

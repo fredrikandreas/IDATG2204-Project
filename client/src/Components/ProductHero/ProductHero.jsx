@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import './ProductHero.css';
 import { getProduct } from "../../utils/getProduct";
 import ProductItem from "../ProductItem/ProductItem";
 import Button from "../Button/Button";
+import { isLoggedIn } from "../../utils/auth";
 
 const ProductHero = () => {
     const id = window.location.pathname.split("/")[2];
@@ -31,6 +33,19 @@ const ProductHero = () => {
         }
     };
 
+    const navigate = useNavigate();
+
+    const handleAddToCart = () => {
+        if (!isLoggedIn()) {
+            navigate('/login', { state: { from: `/product/${id}` } });
+            return;
+        }
+
+        console.log(`Adding product ${id} with quantity ${quantity} to cart`);
+
+        navigate('/cart');
+    };
+
     return (
         <div>
             {product ? (
@@ -56,7 +71,7 @@ const ProductHero = () => {
                         <Button
                             type="dark"
                             text={`Add to cart →`}
-                            path="/cart"
+                            onClick={() => handleAddToCart()}
                         />
                     </div>
                 </div>

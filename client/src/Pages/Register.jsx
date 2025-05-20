@@ -3,7 +3,9 @@ import LoginRegister from "../Components/LoginRegister/LoginRegister";
 
 const Register = () => {
   return (
-      <LoginRegister mode="register"/>
+      <div>
+        <LoginRegister mode="register"/>
+      </div>
   );
 };
 

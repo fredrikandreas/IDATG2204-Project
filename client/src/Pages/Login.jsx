@@ -3,7 +3,9 @@ import LoginRegister from "../Components/LoginRegister/LoginRegister";
 
 const Login = () => {
   return (
-    <LoginRegister mode="login"/>
+      <div>
+        <LoginRegister mode="login"/>
+      </div>
   );
 };
 

@@ -8,12 +8,14 @@ import Cart from "./Pages/Cart";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Footer from "./Components/Footer/Footer";
+import ScrollToTop from "./utils/scrollToTop.js";
 
 function App() {
   return (
       <BrowserRouter>
           <header><Navbar/></header>
           <section>
+              <ScrollToTop />
               <Routes>
                   <Route path="/" element={<Products/>}/>
                   <Route path="/product/:productId" element={<ProductPage/>}/>

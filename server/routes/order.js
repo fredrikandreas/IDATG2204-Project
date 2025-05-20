@@ -73,7 +73,7 @@ router.get('/cart',auth, async (req, res) => {
     );
 
     if (orderResult.rows.length === 0) {
-      return res.status(404).json({ error: 'No processing order found for this user' });
+      return res.json([]);
     }
 
     const order_id = orderResult.rows[0].order_id;

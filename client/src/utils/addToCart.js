@@ -1,4 +1,5 @@
 export const addToCart = async ({ product_id, quantity, price }) => {
+    const token = localStorage.getItem('token');
     const apiUrl = `${process.env.REACT_APP_BACKEND}/api/order`;
 
     const body = {
@@ -10,7 +11,10 @@ export const addToCart = async ({ product_id, quantity, price }) => {
     try {
         const response = await fetch(apiUrl, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
             body: JSON.stringify(body),
         });
 

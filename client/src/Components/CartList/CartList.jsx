@@ -21,18 +21,22 @@ const CartList = () => {
     };
 
     useEffect(() => {
-        if (!isLoggedIn()) {
-            navigate('/login', { state: { from: `/cart` } });
-            return;
-        }
-        fetchCart().then();
+        getCart()
+            .then(data => {
+                setCartItems(data);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error('Error loading cart:', err);
+                setLoading(false);
+            });
     }, []);
 
     const handleOrder = async () => {
         const result = await orderCart();
         if (result) {
             alert('Order placed!');
-            await fetchCart(); // refresh cart after ordering
+            await fetchCart();
         }
     };
 

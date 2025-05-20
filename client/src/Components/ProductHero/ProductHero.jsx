@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import './ProductHero.css';
 import { getProduct } from "../../utils/getProduct";
+import { addToCart } from "../../utils/addToCart";
 import ProductItem from "../ProductItem/ProductItem";
 import Button from "../Button/Button";
 import { isLoggedIn } from "../../utils/auth";
@@ -10,6 +11,7 @@ const ProductHero = () => {
     const id = window.location.pathname.split("/")[2];
     const [product, setProduct] = useState(null);
     const [quantity, setQuantity] = useState(1);
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchProducts() {
@@ -33,17 +35,22 @@ const ProductHero = () => {
         }
     };
 
-    const navigate = useNavigate();
-
-    const handleAddToCart = () => {
+    const handleAddToCart = async () => {
         if (!isLoggedIn()) {
             navigate('/login', { state: { from: `/product/${id}` } });
             return;
         }
 
-        console.log(`Adding product ${id} with quantity ${quantity} to cart`);
-
-        navigate('/cart');
+        try {
+            await addToCart({
+                product_id: id,
+                quantity,
+                price: product["price"],
+            });
+            navigate('/cart');
+        } catch (err) {
+            console.error("Failed to add to cart:", err);
+        }
     };
 
     return (

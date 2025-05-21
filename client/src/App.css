@@ -49,4 +49,8 @@ section {
   section .featured-container {
     gap: 16px;
   }
+
+  section .category-container {
+    width: 180px;
+  }
 }

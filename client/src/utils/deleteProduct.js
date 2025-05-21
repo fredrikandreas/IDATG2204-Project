@@ -1,11 +1,12 @@
 import {BACKEND_URL, PATH_ORDER_DELETE} from "./constants";
 
-export const deleteProduct = async (product_id) => {
+export const deleteProduct = async (product_id, quantity) => {
     const token = localStorage.getItem('token');
     const apiUrl = BACKEND_URL + PATH_ORDER_DELETE;
 
     const body = {
         product_id: product_id,
+        quantity: quantity,
     };
 
     try {

@@ -4,7 +4,7 @@ import {deleteProduct} from "../../utils/deleteProduct";
 
 const CartItem = React.memo(({ id, name, price, description, quantity }) =>  {
     const removeProduct = () => {
-        deleteProduct(id)
+        deleteProduct(id, quantity)
         .then(() => {
             console.log("Product deleted")
         })

@@ -26,7 +26,7 @@ const CartList = () => {
                 const cartData = await getCart();
                 const enrichedItems = await Promise.all(
                     cartData.map(async (item) => {
-                        const product = await getProduct(item.product_id);
+                        const product = await getProduct(item["product_id"]);
                         return {
                             ...product,
                             quantity: item["quantity"],
@@ -55,7 +55,6 @@ const CartList = () => {
     return (
         <div className="cart-container">
             <h1>Your Cart</h1>
-
             {loading ? (
                 <h3>Loading...</h3>
             ) : cartItems.length === 0 ? (
@@ -63,11 +62,13 @@ const CartList = () => {
             ) : (
                 <ul className="cart-list">
                     {cartItems.map((item) => (
-                        <li key={item["product_id"]} className="cart-item">
+                        <li key={item["product_id"]} className="cart-list">
                             <CartItem
+                                id={item["product_id"]}
                                 image={getImage(item["image_path"])}
                                 name={item["product_name"]}
                                 price={item["price"]}
+                                description={item["description"]}
                                 quantity={item["quantity"]}
                             />
                         </li>

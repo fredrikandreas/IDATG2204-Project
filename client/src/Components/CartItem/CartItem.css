@@ -1,3 +1,28 @@
 .cart-item-container {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
 
+.cart-item-info {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    width: 80%;
+}
+
+.cart-item-handle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100px;
+}
+
+.cart-item-handle button {
+    width: 40px;
+    height: 40px;
+    border-radius: 25%;
+    background-color: var(--secondary-light);
 }

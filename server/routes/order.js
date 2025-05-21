@@ -28,7 +28,7 @@ router.post('/',auth, async (req, res) => {
       const newTotal = Number(orderResult.rows[0].total_amount) + (quantity * price);
 
       await client.query(
-        'INSERT INTO order_item (order_id, product_id, quantity, price_at_purchase) VALUES ($1, $2, $3, $4)',
+        'INSERT INTO order_item (order_id, product_id, quantity, unit_price) VALUES ($1, $2, $3, $4)',
         [order_id, product_id, quantity, price]
       );
 

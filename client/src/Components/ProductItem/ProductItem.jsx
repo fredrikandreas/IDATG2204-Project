@@ -1,6 +1,5 @@
 import React from 'react';
 import './ProductItem.css';
-import {getImage} from "../../utils/getImage";
 
 const ProductItem = React.memo(({ dir, image, name, price, description, quantity }) => {
     return (

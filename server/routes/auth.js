@@ -5,21 +5,22 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 
 router.post("/register", async (req, res) => {
-    const { username, password } = req.body;
+    const { username, password, email } = req.body;
 
     // Validate input
-    if (!username || !password) {
-        return res.status(400).json({ message: "Username and password are required" });
+    if (!username || !password || !email) {
+        return res.status(400).json({ message: "Username, password and email are required" });
     }
 
     // Hash password
     const hashedPassword = await bcrypt.hash(password, process.env.JWT_SECRET || 10);
+  
 
     // save to db
     try {
         await db.query(
-            "INSERT INTO user (username, password_hash) VALUES ($1, $2)",
-            [username, hashedPassword]
+            'INSERT INTO "user" (username, password_hash, email) VALUES ($1, $2, $3)',
+            [username, hashedPassword, email]
         );
         res.status(201).json({ message: "User registered successfully" });
     }catch (error) {
@@ -40,7 +41,7 @@ router.post("/login", async (req, res) => {
 
   try {
     //  Find user
-    const result = await db.query("SELECT * FROM user WHERE username = $1", [username]);
+    const result = await db.query('SELECT * FROM "user" WHERE username = $1', [username]);
     const user = result.rows[0];
     if (!user) return res.status(401).json({ error: "Invalid credentials" });
 

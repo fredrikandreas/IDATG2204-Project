@@ -5,7 +5,7 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 
 router.post("/register", async (req, res) => {
-    const { username, password, email } = req.body;
+    const { username, password, email, first_name, last_name, street, city, postal_code, phone_number, date_of_birth } = req.body;
 
     // Validate input
     if (!username || !password || !email) {
@@ -19,8 +19,8 @@ router.post("/register", async (req, res) => {
     // save to db
     try {
         await db.query(
-            'INSERT INTO "user" (username, password_hash, email) VALUES ($1, $2, $3)',
-            [username, hashedPassword, email]
+            'INSERT INTO "user" (username, password_hash, email, first_name, last_name, street, city, postal_code, phone_number, date_of_birth) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)',
+            [username, hashedPassword, email, first_name, last_name, street, city, postal_code, phone_number, date_of_birth ]
         );
         res.status(201).json({ message: "User registered successfully" });
     }catch (error) {

@@ -55,7 +55,7 @@ router.post('/',auth, async (req, res) => {
   } catch (error) {
     await client.query('ROLLBACK');
     console.error('Error adding item to cart:', error);
-    res.status(500).json({ error: error });
+    res.status(500).json({ error: error.message });
   } finally {
     client.release();
   }

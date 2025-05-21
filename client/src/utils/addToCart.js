@@ -20,6 +20,8 @@ export const addToCart = async ({ product_id, quantity, price }) => {
             body: JSON.stringify(body),
         });
 
+        console.log(response.json());
+
         if (!response.ok) {
             throw new Error(`Server responded with status ${response.status}`);
         }

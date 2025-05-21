@@ -6,6 +6,7 @@ import { addToCart } from "../../utils/addToCart";
 import ProductItem from "../ProductItem/ProductItem";
 import Button from "../Button/Button";
 import { isLoggedIn } from "../../utils/auth";
+import {getImage} from "../../utils/getImage";
 
 const ProductHero = () => {
     const id = window.location.pathname.split("/")[2];
@@ -45,7 +46,7 @@ const ProductHero = () => {
             await addToCart({
                 product_id: id,
                 quantity,
-                price: product["price"],
+                price: product["price"] * quantity,
             });
             navigate('/cart');
         } catch (err) {
@@ -59,7 +60,7 @@ const ProductHero = () => {
                 <div className="product-hero">
                     <ProductItem
                         dir="row"
-                        image={`${process.env.REACT_APP_BACKEND}${product["image_url"]}`}
+                        image={getImage(product["image_path"])}
                         name={product["name"]}
                         price={product["price"]}
                         description={product["description"]}

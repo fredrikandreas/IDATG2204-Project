@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import './ItemList.css';
 import ProductItem from '../ProductItem/ProductItem';
-import {BACKEND_URL} from "../../utils/constants";
+import {getImage} from "../../utils/getImage";
 
 export default function ItemList({ productList }) {
     return (
@@ -19,8 +19,8 @@ export default function ItemList({ productList }) {
                         >
                             <ProductItem
                                 dir="column"
-                                image={BACKEND_URL + item['image_url']}
-                                name={item['name']}
+                                image={getImage(item["image_path"])}
+                                name={item['product_name']}
                                 price={item['price']}
                                 description=""
                                 quantity={item['stock_quantity']}

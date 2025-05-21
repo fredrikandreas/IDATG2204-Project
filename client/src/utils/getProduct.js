@@ -1,8 +1,21 @@
-export async function getProduct(id) {
-    const backendUrl = `${process.env.REACT_APP_BACKEND}/api/products/${id}`;
-    const res = await fetch(backendUrl);
-    if (!res.ok) {
-        throw new Error(`Failed to load product: ${res.status} ${res.statusText}`);
+import { BACKEND_URL, PATH_PRODUCTS } from './constants';
+
+export const getProduct = async (id) => {
+    const apiUrl = BACKEND_URL + PATH_PRODUCTS + `/${id}`;
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Server responded with status ${response.status}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching product:', error);
+        return [];
     }
-    return await res.json();
-}
+};

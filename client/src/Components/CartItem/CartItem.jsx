@@ -1,9 +1,17 @@
 import React from "react";
 import "./CartItem.css";
+import {deleteProduct} from "../../utils/deleteProduct";
 
 const CartItem = React.memo(({ id, name, price, description, quantity }) =>  {
     const removeProduct = () => {
-        alert(id);
+        deleteProduct(id)
+        .then(() => {
+            console.log("Product deleted")
+        })
+        .catch((err) => {
+            console.log(err)
+        }
+        )
     }
 
     return (

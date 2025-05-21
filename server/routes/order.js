@@ -62,7 +62,7 @@ router.post('/', auth, async (req, res) => {
       order_id = newOrder.rows[0].order_id;
 
       await client.query(
-        'INSERT INTO order_item (order_id, product_id, quantity, unit_price) VALUES ($1, $2, $3, $4)',
+        'INSERT INTO order_item (order_id, product_id, quantity, price_at_purchase) VALUES ($1, $2, $3, $4)',
         [order_id, product_id, quantity, price]
       );
     }
@@ -82,7 +82,7 @@ router.post('/', auth, async (req, res) => {
   } catch (error) {
     await client.query('ROLLBACK');
     console.error('Error adding item to cart:', error);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message || 'DB error' });
   } finally {
     client.release();
   }
@@ -155,4 +155,53 @@ router.get('/pay', auth, async (req, res) => {
   }
 });
 
+router.post('/delete', auth, async (req, res) => {
+  const user_id = req.user.id; // Get user_id from the JWT token
+  const { product_id } = req.body;
+
+  if (!user_id || !product_id) {
+    return res.status(400).json({ error: 'Missing user_id or product_id' });
+  }
+
+  try {
+    // Find the processing order for the user
+    const orderResult = await db.query(
+      'SELECT order_id FROM "order" WHERE user_id = $1 AND status = $2',
+      [user_id, 'PROCESSING']
+    );
+
+    if (orderResult.rows.length === 0) {
+      return res.status(404).json({ error: 'No processing order found for this user' });
+    }
+
+    const order_id = orderResult.rows[0].order_id;
+
+    // Delete the item from the order_item table
+    await db.query(
+      'DELETE FROM order_item WHERE order_id = $1 AND product_id = $2',
+      [order_id, product_id]
+    );
+
+    // Check if there are any remaining items in the order
+    const remainingItemsResult = await db.query(
+      'SELECT COUNT(*) AS item_count FROM order_item WHERE order_id = $1',
+      [order_id]
+    );
+
+    const itemCount = parseInt(remainingItemsResult.rows[0].item_count, 10);
+
+    if (itemCount === 0) {
+      // No items left, delete the order
+      await db.query(
+        'DELETE FROM "order" WHERE order_id = $1',
+        [order_id]
+      );
+    }
+
+    res.json({ message: 'Item removed from cart' });
+  } catch (error) {
+    console.error('Error removing item from cart:', error);
+    res.status(500).json({ error: 'DB error' });
+  }
+});
 module.exports = router;

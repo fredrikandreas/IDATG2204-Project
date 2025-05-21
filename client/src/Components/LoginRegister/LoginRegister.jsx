@@ -9,6 +9,7 @@ const LoginRegister = ({ mode }) => {
     const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
@@ -40,7 +41,7 @@ const LoginRegister = ({ mode }) => {
     const handleRegister = async (e) => {
         e.preventDefault();
         setLoading(true);
-        const { ok, data } = await registerUser(username, password);
+        const { ok, data } = await registerUser(username, password, email);
         setLoading(false);
         if (ok) {
             setError(false);
@@ -67,6 +68,15 @@ const LoginRegister = ({ mode }) => {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
+                <input
+                    style={{display: mode === 'register' ? 'block' : 'none'}}
+                    disabled={mode === 'login'}
+                    placeholder="Email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                 />
                 <button type="submit" disabled={loading}>

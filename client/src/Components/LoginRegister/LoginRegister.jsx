@@ -9,6 +9,7 @@ const LoginRegister = ({ mode }) => {
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         if (isLoggedIn()) {
@@ -28,12 +29,14 @@ const LoginRegister = ({ mode }) => {
         setLoading(false);
         if (res.ok && data.token) {
             localStorage.setItem('token', data.token);
+            setError(false);
             setMessage('Login successful!');
             setUsername('');
             setPassword('');
             navigate('/');
         } else {
-            setMessage(data.error || 'Login failed');
+            setError(true);
+            setMessage(data.error || 'Login failed!');
         }
     };
 
@@ -46,10 +49,12 @@ const LoginRegister = ({ mode }) => {
         });
         const data = await res.json();
         if (res.ok) {
-            // Automatically log in after successful registration
+            setError(false);
+            setMessage('Registration successful!');
             await handleLogin(e);
         } else {
-            setMessage(data.message || 'Registration failed');
+            setError(true);
+            setMessage(data.message || 'Registration failed!');
         }
     };
 
@@ -76,7 +81,7 @@ const LoginRegister = ({ mode }) => {
                     </h3>
                 </button>
             </form>
-            <h3>{message}</h3>
+            <h3 style={{color: error ? 'red' : 'green'}}>{message}</h3>
         </div>
     );
 };

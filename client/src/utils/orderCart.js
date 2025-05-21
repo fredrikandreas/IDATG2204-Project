@@ -1,17 +1,28 @@
+import { BACKEND_URL, PATH_ORDER_PAY } from './constants';
+
 export const orderCart = async () => {
     const token = localStorage.getItem('token');
+
     if (!token) return [];
 
-    const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/order/pay`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-            'user_id': localStorage.getItem('user_id'),
-        },
-    });
-    if (!res.ok) {
-        console.error('failed to pay cart, status', res.status);
+    const apiUrl = BACKEND_URL + PATH_ORDER_PAY;
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Server responded with status ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Error paying order:', error);
         return [];
     }
-    return res.json();
 };

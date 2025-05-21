@@ -1,5 +1,7 @@
-export const getFilteredProducts = async ({ category, brand, sort }) => {
-    const apiUrl = `${process.env.REACT_APP_BACKEND}/api/products/filter`;
+import { BACKEND_URL, PATH_PRODUCTS_FILTER } from './constants';
+
+export const getFilteredProducts = async ({ brand, category, sort }) => {
+    const apiUrl = BACKEND_URL + PATH_PRODUCTS_FILTER;
 
     const body = {
         brand: brand || null,

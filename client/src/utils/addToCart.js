@@ -1,6 +1,8 @@
+import {BACKEND_URL, PATH_ORDER} from "./constants";
+
 export const addToCart = async ({ product_id, quantity, price }) => {
     const token = localStorage.getItem('token');
-    const apiUrl = `${process.env.REACT_APP_BACKEND}/api/order`;
+    const apiUrl = BACKEND_URL + PATH_ORDER;
 
     const body = {
         product_id: product_id || null,
@@ -14,7 +16,6 @@ export const addToCart = async ({ product_id, quantity, price }) => {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
-                'user_id': localStorage.getItem('user_id'),
             },
             body: JSON.stringify(body),
         });
@@ -25,7 +26,7 @@ export const addToCart = async ({ product_id, quantity, price }) => {
 
         return response.json();
     } catch (error) {
-        console.error('Error fetching cart:', error);
+        console.error('Error adding to cart:', error);
         return [];
     }
 };

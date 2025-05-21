@@ -1,17 +1,28 @@
+import { BACKEND_URL, PATH_ORDER_CART } from './constants';
+
 export const getCart = async () => {
     const token = localStorage.getItem('token');
+
     if (!token) return [];
 
-    const res = await fetch(`${process.env.REACT_APP_BACKEND}/api/order/cart`, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-            'user_id': localStorage.getItem('user_id'),
-        },
-    });
-    if (!res.ok) {
-        console.error('failed to fetch cart, status', res.status);
+    const apiUrl = BACKEND_URL + PATH_ORDER_CART;
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`Server responded with status ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Error fetching cart:', error);
         return [];
     }
-    return res.json();
 };

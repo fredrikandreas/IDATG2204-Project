@@ -62,7 +62,7 @@ router.post('/', auth, async (req, res) => {
       order_id = newOrder.rows[0].order_id;
 
       await client.query(
-        'INSERT INTO order_item (order_id, product_id, quantity, price_at_purchase) VALUES ($1, $2, $3, $4)',
+        'INSERT INTO order_item (order_id, product_id, quantity, unit_price) VALUES ($1, $2, $3, $4)',
         [order_id, product_id, quantity, price]
       );
     }
@@ -82,7 +82,7 @@ router.post('/', auth, async (req, res) => {
   } catch (error) {
     await client.query('ROLLBACK');
     console.error('Error adding item to cart:', error);
-    res.status(500).json({ error: error.message || 'DB error' });
+    res.status(500).json({ error: error.message });
   } finally {
     client.release();
   }

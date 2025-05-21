@@ -2,13 +2,13 @@ import React, {useEffect, useState} from 'react';
 import './CartList.css';
 import {getCart} from "../../utils/getCart";
 import {orderCart} from "../../utils/orderCart";
-import { isLoggedIn } from "../../utils/auth";
 import {useNavigate} from "react-router-dom";
+import {getProduct} from "../../utils/getProduct";
+import {getImage} from "../../utils/getImage";
+import CartItem from "../CartItem/CartItem";
 
 const CartList = () => {
     const navigate = useNavigate();
-
-
 
     const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -21,15 +21,27 @@ const CartList = () => {
     };
 
     useEffect(() => {
-        getCart()
-            .then(data => {
-                setCartItems(data);
-                setLoading(false);
-            })
-            .catch(err => {
+        const fetchCartWithProducts = async () => {
+            try {
+                const cartData = await getCart();
+                const enrichedItems = await Promise.all(
+                    cartData.map(async (item) => {
+                        const product = await getProduct(item.product_id);
+                        return {
+                            ...product,
+                            quantity: item["quantity"],
+                        };
+                    })
+                );
+                setCartItems(enrichedItems);
+            } catch (err) {
                 console.error('Error loading cart:', err);
+            } finally {
                 setLoading(false);
-            });
+            }
+        };
+
+        fetchCartWithProducts().then();
     }, []);
 
     const handleOrder = async () => {
@@ -51,10 +63,13 @@ const CartList = () => {
             ) : (
                 <ul className="cart-list">
                     {cartItems.map((item) => (
-                        <li key={item.id} className="cart-item">
-                            <div><strong>{item.name}</strong></div>
-                            <div>Qty: {item.quantity}</div>
-                            <div>Price: ${item.price.toFixed(2)}</div>
+                        <li key={item["product_id"]} className="cart-item">
+                            <CartItem
+                                image={getImage(item["image_path"])}
+                                name={item["product_name"]}
+                                price={item["price"]}
+                                quantity={item["quantity"]}
+                            />
                         </li>
                     ))}
                 </ul>

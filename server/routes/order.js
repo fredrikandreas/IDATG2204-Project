@@ -157,10 +157,10 @@ router.get('/pay', auth, async (req, res) => {
 
 router.post('/delete', auth, async (req, res) => {
   const user_id = req.user.id; // Get user_id from the JWT token
-  const { product_id } = req.body;
+  const { product_id, quantity } = req.body;
 
-  if (!user_id || !product_id) {
-    return res.status(400).json({ error: 'Missing user_id or product_id' });
+  if (!user_id || !product_id || !quantity) {
+    return res.status(400).json({ error: 'Missing user_id, product_id, or quantity' });
   }
 
   const client = await db.connect();
@@ -189,8 +189,8 @@ router.post('/delete', auth, async (req, res) => {
       throw new Error('Item not found in the order');
     }
 
-    const { quantity, unit_price } = itemResult.rows[0];
-    const itemTotal = quantity * unit_price;
+    const { quantity: itemQuantity, unit_price } = itemResult.rows[0];
+    const itemTotal = itemQuantity * unit_price;
 
     // Delete the item from the order_item table
     await client.query(
@@ -203,6 +203,12 @@ router.post('/delete', auth, async (req, res) => {
     await client.query(
       'UPDATE "order" SET total_amount = $1 WHERE order_id = $2',
       [newTotalAmount, order_id]
+    );
+
+    // Increment the stock_quantity in the product table
+    await client.query(
+      'UPDATE product SET stock_quantity = stock_quantity + $1 WHERE product_id = $2',
+      [quantity, product_id]
     );
 
     // Check if there are any remaining items in the order
@@ -222,7 +228,7 @@ router.post('/delete', auth, async (req, res) => {
     }
 
     await client.query('COMMIT');
-    res.json({ message: 'Item removed from cart' });
+    res.json({ message: 'Item removed from cart and stock updated' });
   } catch (error) {
     await client.query('ROLLBACK');
     console.error('Error removing item from cart:', error);

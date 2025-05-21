@@ -61,7 +61,7 @@ const ProductHero = () => {
                     <ProductItem
                         dir="row"
                         image={getImage(product["image_path"])}
-                        name={product["name"]}
+                        name={product["product_name"]}
                         price={product["price"]}
                         description={product["description"]}
                         quantity={product["stock_quantity"]}

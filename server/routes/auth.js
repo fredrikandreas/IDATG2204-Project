@@ -13,7 +13,7 @@ router.post("/register", async (req, res) => {
     }
 
     // Hash password
-    const hashedPassword = await bcrypt.hash(password, process.env.JWT_SECRET || 10);
+    const hashedPassword = await bcrypt.hash(password,10);
   
 
     // save to db

@@ -1,5 +1,5 @@
 .login-container {
-    width: 400px;
+    width: 500px;
     margin: auto;
     background-color: var(--secondary-dark);
     padding: 64px 100px;
@@ -43,4 +43,13 @@
     background-color: var(--transparent);
     border-color: var(--secondary-light);
     color: var(--secondary-light);
+}
+
+.reg-side {
+    width: 100%;
+    justify-content: space-between;
+}
+
+.reg-side input {
+    width: 47%;
 }

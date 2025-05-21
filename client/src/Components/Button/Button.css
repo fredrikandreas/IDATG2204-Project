@@ -8,7 +8,7 @@ button {
     border-radius: 4px;
 }
 
-button:hover {
+button:not(:disabled):hover  {
     cursor: pointer;
 }
 
@@ -19,7 +19,7 @@ button:hover {
 }
 
 
-.dark:hover {
+.dark:not(:disabled):hover {
     background-color: var(--transparent);
     border-color: var(--secondary-light);
     color: var(--secondary-light);
@@ -31,7 +31,7 @@ button:hover {
     color: var(--secondary-light);
 }
 
-.light:hover {
+.light:not(:disabled):hover {
     background-color: var(--secondary-light);
     border-color: var(--secondary-light);
     color: var(--primary-dark);

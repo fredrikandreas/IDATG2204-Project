@@ -163,27 +163,50 @@ router.post('/delete', auth, async (req, res) => {
     return res.status(400).json({ error: 'Missing user_id or product_id' });
   }
 
+  const client = await db.connect();
   try {
+    await client.query('BEGIN');
+
     // Find the processing order for the user
-    const orderResult = await db.query(
-      'SELECT order_id FROM "order" WHERE user_id = $1 AND status = $2',
+    const orderResult = await client.query(
+      'SELECT order_id, total_amount FROM "order" WHERE user_id = $1 AND status = $2',
       [user_id, 'PROCESSING']
     );
 
     if (orderResult.rows.length === 0) {
-      return res.status(404).json({ error: 'No processing order found for this user' });
+      throw new Error('No processing order found for this user');
     }
 
     const order_id = orderResult.rows[0].order_id;
 
+    // Get the price of the item being deleted
+    const itemResult = await client.query(
+      'SELECT quantity, unit_price FROM order_item WHERE order_id = $1 AND product_id = $2',
+      [order_id, product_id]
+    );
+
+    if (itemResult.rows.length === 0) {
+      throw new Error('Item not found in the order');
+    }
+
+    const { quantity, unit_price } = itemResult.rows[0];
+    const itemTotal = quantity * unit_price;
+
     // Delete the item from the order_item table
-    await db.query(
+    await client.query(
       'DELETE FROM order_item WHERE order_id = $1 AND product_id = $2',
       [order_id, product_id]
     );
 
+    // Update the total amount in the order table
+    const newTotalAmount = Number(orderResult.rows[0].total_amount) - itemTotal;
+    await client.query(
+      'UPDATE "order" SET total_amount = $1 WHERE order_id = $2',
+      [newTotalAmount, order_id]
+    );
+
     // Check if there are any remaining items in the order
-    const remainingItemsResult = await db.query(
+    const remainingItemsResult = await client.query(
       'SELECT COUNT(*) AS item_count FROM order_item WHERE order_id = $1',
       [order_id]
     );
@@ -192,16 +215,20 @@ router.post('/delete', auth, async (req, res) => {
 
     if (itemCount === 0) {
       // No items left, delete the order
-      await db.query(
+      await client.query(
         'DELETE FROM "order" WHERE order_id = $1',
         [order_id]
       );
     }
 
+    await client.query('COMMIT');
     res.json({ message: 'Item removed from cart' });
   } catch (error) {
+    await client.query('ROLLBACK');
     console.error('Error removing item from cart:', error);
     res.status(500).json({ error: 'DB error' });
+  } finally {
+    client.release();
   }
 });
 module.exports = router;

@@ -12,6 +12,7 @@ const CartList = () => {
 
     const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [ordering, setOrdering] = useState(false); // NEW
 
     const fetchCart = async () => {
         setLoading(true);
@@ -52,10 +53,18 @@ const CartList = () => {
     };
 
     const handleOrder = async () => {
-        const result = await orderCart();
-        if (result) {
-            alert('Order placed!');
-            await fetchCart();
+        setOrdering(true);
+        try {
+            const result = await orderCart();
+            if (result) {
+                alert('Order placed!');
+                navigate('/');
+            }
+        } catch (err) {
+            console.error('Order failed:', err);
+            alert('Failed to place order. Try again later.');
+        } finally {
+            setOrdering(false);
         }
     };
 
@@ -84,8 +93,11 @@ const CartList = () => {
                 </ul>
             )}
 
-            <button onClick={handleOrder} disabled={cartItems.length === 0}>
-                Place Order
+            <button
+                onClick={handleOrder}
+                disabled={cartItems.length === 0 || ordering}
+            >
+                <h3>{ordering ? 'Placing Order...' : 'Place Order'}</h3>
             </button>
         </div>
     );

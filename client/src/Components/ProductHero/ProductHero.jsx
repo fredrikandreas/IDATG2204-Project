@@ -78,9 +78,9 @@ const ProductHero = () => {
                     <div className="button-wrap">
                         <Button
                             type="dark"
-                            text={quantity === 0 ? `Add to cart →` : 'Sold out'}
+                            text={product["stock_quantity"] === 0 ? 'Sold out' : `Add to cart →` }
                             onClick={() => handleAddToCart()}
-                            mode={quantity === 0 ? 'enabled' : 'disabled'}
+                            mode={product["stock_quantity"] === 0 ? 'disabled' : 'enabled' }
                         />
                     </div>
                 </div>

@@ -13,12 +13,12 @@ router.post("/register", async (req, res) => {
     }
 
     // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, process.env.JWT_SECRET || 10);
 
     // save to db
     try {
         await db.query(
-            "INSERT INTO users (username, password) VALUES ($1, $2)",
+            "INSERT INTO user (username, password_hash) VALUES ($1, $2)",
             [username, hashedPassword]
         );
         res.status(201).json({ message: "User registered successfully" });
@@ -40,17 +40,17 @@ router.post("/login", async (req, res) => {
 
   try {
     //  Find user
-    const result = await db.query("SELECT * FROM users WHERE username = $1", [username]);
+    const result = await db.query("SELECT * FROM user WHERE username = $1", [username]);
     const user = result.rows[0];
     if (!user) return res.status(401).json({ error: "Invalid credentials" });
 
     //  Compare passwords
-    const match = await bcrypt.compare(password, user.password);
+    const match = await bcrypt.compare(password, user.password_hash);
     if (!match) return res.status(401).json({ error: "Invalid credentials" });
 
     //  Create JWT
     const token = jwt.sign(
-      { id: user.id, username: user.username },
+      { id: user.user_id, username: user.username },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );

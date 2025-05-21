@@ -1,18 +1,20 @@
 import React from "react";
 import "./CartItem.css";
-import {deleteProduct} from "../../utils/deleteProduct";
+import { deleteProduct } from "../../utils/deleteProduct";
 
-const CartItem = React.memo(({ id, name, price, description, quantity }) =>  {
+const CartItem = React.memo(({ id, name, price, description, quantity, onDelete }) => {
     const removeProduct = () => {
         deleteProduct(id, quantity)
-        .then(() => {
-            console.log("Product deleted")
-        })
-        .catch((err) => {
-            console.log(err)
-        }
-        )
-    }
+            .then(() => {
+                console.log("Product deleted");
+                if (onDelete) {
+                    onDelete(id, quantity);
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
 
     return (
         <div className="cart-item-container">
@@ -23,13 +25,10 @@ const CartItem = React.memo(({ id, name, price, description, quantity }) =>  {
             </div>
             <div className="cart-item-handle">
                 <h2>{quantity}</h2>
-                <button
-                    type="button"
-                    onClick={removeProduct}
-                >X</button>
+                <button type="button" onClick={removeProduct}>X</button>
             </div>
         </div>
-    )
-})
+    );
+});
 
 export default CartItem;

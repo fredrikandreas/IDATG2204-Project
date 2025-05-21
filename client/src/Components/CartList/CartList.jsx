@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './CartList.css';
-import {getCart} from "../../utils/getCart";
-import {orderCart} from "../../utils/orderCart";
-import {useNavigate} from "react-router-dom";
-import {getProduct} from "../../utils/getProduct";
-import {getImage} from "../../utils/getImage";
+import { getCart } from "../../utils/getCart";
+import { orderCart } from "../../utils/orderCart";
+import { useNavigate } from "react-router-dom";
+import { getProduct } from "../../utils/getProduct";
+import { getImage } from "../../utils/getImage";
 import CartItem from "../CartItem/CartItem";
 
 const CartList = () => {
@@ -29,6 +29,7 @@ const CartList = () => {
                         const product = await getProduct(item["product_id"]);
                         return {
                             ...product,
+                            product_id: item["product_id"],
                             quantity: item["quantity"],
                         };
                     })
@@ -43,6 +44,12 @@ const CartList = () => {
 
         fetchCartWithProducts().then();
     }, []);
+
+    const handleDelete = (deletedId) => {
+        setCartItems(prevItems =>
+            prevItems.filter(item => item["product_id"] !== deletedId)
+        );
+    };
 
     const handleOrder = async () => {
         const result = await orderCart();
@@ -70,6 +77,7 @@ const CartList = () => {
                                 price={item["price"]}
                                 description={item["description"]}
                                 quantity={item["quantity"]}
+                                onDelete={handleDelete}
                             />
                         </li>
                     ))}
@@ -80,7 +88,7 @@ const CartList = () => {
                 Place Order
             </button>
         </div>
-    )
-}
+    );
+};
 
 export default CartList;

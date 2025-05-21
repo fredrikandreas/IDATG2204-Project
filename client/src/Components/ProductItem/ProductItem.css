@@ -25,6 +25,13 @@
     gap: 4px;
 }
 
+.product-info h2 {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 .kvant {
     color: grey;
 }

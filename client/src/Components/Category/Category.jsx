@@ -1,21 +1,72 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Category.css';
-import brands from '../Assets/brands.json';
-import cats from '../Assets/categories.json';
 import Button from '../Button/Button';
-import { getFilteredProducts } from '../../utils/getFilteredProducts';
+import { getCategories } from "../../utils/getCategories";
+import { getBrands } from "../../utils/getBrands";
 
 const Category = ({ onFilter }) => {
+    const [categories, setCategories] = useState([]);
+    const [brands, setBrands] = useState([]);
+
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedBrand, setSelectedBrand] = useState('');
     const [sortOrder, setSortOrder] = useState('asc');
 
-    const handleFilter = () => {
-        onFilter({
-            category: selectedCategory || null,
-            brand: selectedBrand || null,
-            sort: sortOrder || null
-        }).then();
+    const [loading, setLoading] = useState(true);
+    const [filterApplied, setFilterApplied] = useState(false);
+
+    const fetchFilters = async () => {
+        setLoading(true);
+        try {
+            const [cats, bran] = await Promise.all([getCategories(), getBrands()]);
+            setCategories(cats);
+            setBrands(bran);
+        } catch (err) {
+            console.error("Error fetching filters:", err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchFilters();
+    }, []);
+
+    const applyFilter = async () => {
+        try {
+            await onFilter({
+                category: selectedCategory || null,
+                brand: selectedBrand || null,
+                sort: sortOrder || null,
+            });
+            setFilterApplied(true);
+        } catch (err) {
+            console.error("Error applying filter:", err);
+        }
+    };
+
+    const resetFilter = async () => {
+        try {
+            setSelectedCategory('');
+            setSelectedBrand('');
+            setSortOrder('asc');
+            await onFilter({
+                category: null,
+                brand: null,
+                sort: 'asc',
+            });
+            setFilterApplied(false);
+        } catch (err) {
+            console.error("Error resetting filter:", err);
+        }
+    };
+
+    const handleButtonClick = () => {
+        if (filterApplied) {
+            resetFilter();
+        } else {
+            applyFilter();
+        }
     };
 
     return (
@@ -31,10 +82,13 @@ const Category = ({ onFilter }) => {
                     id="select-category"
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
+                    disabled={loading}
                 >
-                    <option value="">Choose a category</option>
-                    {cats.map((item, index) => (
-                        <option key={index} value={item.name}>{item.name}</option>
+                    <option value="">{loading ? "Loading categories..." : "Choose a category"}</option>
+                    {categories.map((item, index) => (
+                        <option key={index} value={item["category_id"]}>
+                            {item["category_name"]}
+                        </option>
                     ))}
                 </select>
             </div>
@@ -45,10 +99,13 @@ const Category = ({ onFilter }) => {
                     id="select-brand"
                     value={selectedBrand}
                     onChange={(e) => setSelectedBrand(e.target.value)}
+                    disabled={loading}
                 >
-                    <option value="">Choose a brand</option>
+                    <option value="">{loading ? "Loading brands..." : "Choose a brand"}</option>
                     {brands.map((item, index) => (
-                        <option key={index} value={item.name}>{item.name}</option>
+                        <option key={index} value={item["brand_id"]}>
+                            {item["brand_name"]}
+                        </option>
                     ))}
                 </select>
             </div>
@@ -59,6 +116,7 @@ const Category = ({ onFilter }) => {
                     id="select-sort"
                     value={sortOrder}
                     onChange={(e) => setSortOrder(e.target.value)}
+                    disabled={loading}
                 >
                     <option value="asc">Ascending</option>
                     <option value="desc">Descending</option>
@@ -66,7 +124,12 @@ const Category = ({ onFilter }) => {
             </div>
 
             <div className="cat apply-filter">
-                <Button type="light" text="Apply filter →" onClick={handleFilter} />
+                <Button
+                    type="light"
+                    text={filterApplied ? "Reset filter" : loading ? "Loading..." : "Apply filter →"}
+                    onClick={handleButtonClick}
+                    disabled={loading}
+                />
             </div>
         </div>
     );

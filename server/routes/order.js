@@ -237,4 +237,29 @@ router.post('/delete', auth, async (req, res) => {
     client.release();
   }
 });
+
+// Get the total amount for the current processing order
+router.get('/total-amount', auth, async (req, res) => {
+  const user_id = req.user.id; // Get user_id from the JWT token
+
+  try {
+    // Find the processing order for the user
+    const orderResult = await db.query(
+      'SELECT total_amount FROM "order" WHERE user_id = $1 AND status = $2',
+      [user_id, 'PROCESSING']
+    );
+
+    if (orderResult.rows.length === 0) {
+      return res.json({ total_amount: 0 }); // No processing order, total is 0
+    }
+
+    const total_amount = orderResult.rows[0].total_amount;
+
+    res.json({ total_amount });
+  } catch (error) {
+    console.error('Error fetching total amount:', error);
+    res.status(500).json({ error: 'DB error' });
+  }
+});
+
 module.exports = router;

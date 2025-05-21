@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { isLoggedIn } from "../../utils/auth";
 import './LoginRegister.css';
+import {loginUser} from "../../utils/loginUser";
+import {registerUser} from "../../utils/registerUser";
 
 const LoginRegister = ({ mode }) => {
     const navigate = useNavigate();
@@ -20,14 +22,9 @@ const LoginRegister = ({ mode }) => {
     const handleLogin = async (e) => {
         e.preventDefault();
         setLoading(true);
-        const res = await fetch('http://localhost:5050/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password }),
-        });
-        const data = await res.json();
+        const { ok, data } = await loginUser(username, password);
         setLoading(false);
-        if (res.ok && data.token) {
+        if (ok && data.token) {
             localStorage.setItem('token', data.token);
             setError(false);
             setMessage('Login successful!');
@@ -42,13 +39,10 @@ const LoginRegister = ({ mode }) => {
 
     const handleRegister = async (e) => {
         e.preventDefault();
-        const res = await fetch('http://localhost:5050/api/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password }),
-        });
-        const data = await res.json();
-        if (res.ok) {
+        setLoading(true);
+        const { ok, data } = await registerUser(username, password);
+        setLoading(false);
+        if (ok) {
             setError(false);
             setMessage('Registration successful!');
             await handleLogin(e);

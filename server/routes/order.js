@@ -3,9 +3,9 @@ const router = express.Router();
 const db = require('../db');
 const auth = require('../middleware/auth');
 
-router.post('/',auth, async (req, res) => {
+router.post('/', auth, async (req, res) => {
   const user_id = req.user.id; // Get user_id from the JWT token
-  const {product_id, quantity, price } = req.body;
+  const { product_id, quantity, price } = req.body;
 
   if (!user_id || !product_id || !quantity || !price) {
     return res.status(400).json({ error: 'Missing user_id, product_id, quantity, or price' });
@@ -27,11 +27,28 @@ router.post('/',auth, async (req, res) => {
       order_id = orderResult.rows[0].order_id;
       const newTotal = Number(orderResult.rows[0].total_amount) + (quantity * price);
 
-      await client.query(
-        'INSERT INTO order_item (order_id, product_id, quantity, unit_price) VALUES ($1, $2, $3, $4)',
-        [order_id, product_id, quantity, price]
+      // Check if the product already exists in the order_item table
+      const existingItemResult = await client.query(
+        'SELECT quantity FROM order_item WHERE order_id = $1 AND product_id = $2',
+        [order_id, product_id]
       );
 
+      if (existingItemResult.rows.length > 0) {
+        // Product already exists, update the quantity
+        const newQuantity = Number(existingItemResult.rows[0].quantity) + quantity;
+        await client.query(
+          'UPDATE order_item SET quantity = $1 WHERE order_id = $2 AND product_id = $3',
+          [newQuantity, order_id, product_id]
+        );
+      } else {
+        // Product does not exist, insert a new row
+        await client.query(
+          'INSERT INTO order_item (order_id, product_id, quantity, unit_price) VALUES ($1, $2, $3, $4)',
+          [order_id, product_id, quantity, price]
+        );
+      }
+
+      // Update the total amount in the order table
       await client.query(
         'UPDATE "order" SET total_amount = $1 WHERE order_id = $2',
         [newTotal, order_id]
@@ -50,12 +67,22 @@ router.post('/',auth, async (req, res) => {
       );
     }
 
+    // 2. Decrement stock_quantity in the product table
+    const stockUpdateResult = await client.query(
+      'UPDATE product SET stock_quantity = stock_quantity - $1 WHERE product_id = $2 AND stock_quantity >= $1',
+      [quantity, product_id]
+    );
+
+    if (stockUpdateResult.rowCount === 0) {
+      throw new Error('Insufficient stock for the product');
+    }
+
     await client.query('COMMIT');
     res.status(201).json({ message: 'Item added to cart', order_id });
   } catch (error) {
     await client.query('ROLLBACK');
     console.error('Error adding item to cart:', error);
-    res.status(500).json({ error: 'DB error' });
+    res.status(500).json({ error: error.message || 'DB error' });
   } finally {
     client.release();
   }

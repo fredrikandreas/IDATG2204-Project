@@ -138,7 +138,7 @@ router.get('/pay', auth, async (req, res) => {
 
     // Insert payment record
     await db.query(
-      'INSERT INTO payment (order_id, amount, payment_method, payment_date, status, transaction_id) VALUES ($1, $2, $3, NOW(), $4)',
+      'INSERT INTO payment (order_id, amount, payment_method, payment_date, status) VALUES ($1, $2, $3, NOW(), $4)',
       [order_id, amount, 'PayPal', 'COMPLETED']
     );
 

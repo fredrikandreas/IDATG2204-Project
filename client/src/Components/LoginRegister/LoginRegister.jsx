@@ -90,6 +90,7 @@ const LoginRegister = ({ mode }) => {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    minLength={6}
                     required
                 />
                 <input
@@ -144,7 +145,7 @@ const LoginRegister = ({ mode }) => {
                         style={{display: mode === 'register' ? 'block' : 'none'}}
                         disabled={mode === 'login'}
                         placeholder="Postcode"
-                        type="number"
+                        type="text"
                         value={postcode}
                         onChange={(e) => setPostcode(e.target.value)}
                         required
@@ -166,6 +167,8 @@ const LoginRegister = ({ mode }) => {
                         placeholder="Date of birth"
                         type="date"
                         value={dateOfBirth}
+                        min="1900-01-01"
+                        max={new Date().toISOString().split("T")[0]}
                         onChange={(e) => setDateOfBirth(e.target.value)}
                         required
                     />

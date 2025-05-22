@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const db = require("../db"); 
 const router = express.Router();
 const jwt = require("jsonwebtoken");
+const auth = require("../middleware/auth"); // Adjust the path as necessary
 
 router.post("/register", async (req, res) => {
     const { username, password, email, first_name, last_name, street, city, postal_code, phone_number, date_of_birth } = req.body;
@@ -63,6 +64,17 @@ router.post("/login", async (req, res) => {
     console.error("Login error:", err);
     res.status(500).json({ error: "Login failed" });
   }
+});
+
+router.get("/validate-token", auth, (req, res) => {
+  // If middleware passes, token is valid
+  res.status(200).json({ 
+    valid: true, 
+    user: { 
+      id: req.user.id,
+      username: req.user.username 
+    } 
+  });
 });
 
 

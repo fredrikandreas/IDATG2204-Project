@@ -10,7 +10,7 @@ const Category = ({ onFilter }) => {
 
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedBrand, setSelectedBrand] = useState('');
-    const [sortOrder, setSortOrder] = useState('asc');
+    const [sortOrder, setSortOrder] = useState('');
 
     const [loading, setLoading] = useState(true);
     const [filterApplied, setFilterApplied] = useState(false);
@@ -29,7 +29,7 @@ const Category = ({ onFilter }) => {
     };
 
     useEffect(() => {
-        fetchFilters();
+        fetchFilters().then();
     }, []);
 
     const applyFilter = async () => {
@@ -49,11 +49,11 @@ const Category = ({ onFilter }) => {
         try {
             setSelectedCategory('');
             setSelectedBrand('');
-            setSortOrder('asc');
+            setSortOrder('');
             await onFilter({
                 category: null,
                 brand: null,
-                sort: 'asc',
+                sort: null,
             });
             setFilterApplied(false);
         } catch (err) {
@@ -63,9 +63,13 @@ const Category = ({ onFilter }) => {
 
     const handleButtonClick = () => {
         if (filterApplied) {
-            resetFilter();
+            resetFilter().then();
         } else {
-            applyFilter();
+            if (selectedCategory || selectedBrand || sortOrder) {
+                applyFilter().then();
+            } else {
+                alert("Please select at least one filter before applying");
+            }
         }
     };
 
@@ -118,17 +122,18 @@ const Category = ({ onFilter }) => {
                     onChange={(e) => setSortOrder(e.target.value)}
                     disabled={loading}
                 >
-                    <option value="asc">Ascending</option>
-                    <option value="desc">Descending</option>
+                    <option value="">{loading ? "Loading sort order..." : "Choose a sort order"}</option>
+                    <option value="asc">Low → High</option>
+                    <option value="desc">High → Low</option>
                 </select>
             </div>
 
             <div className="cat apply-filter">
                 <Button
-                    type="light"
-                    text={filterApplied ? "Reset filter" : loading ? "Loading..." : "Apply filter →"}
+                    type={filterApplied ? "dark" : "light"}
+                    text={filterApplied ? "Clear" : loading ? "Loading..." : "Apply filter →"}
                     onClick={handleButtonClick}
-                    disabled={loading}
+                    mode={loading}
                 />
             </div>
         </div>

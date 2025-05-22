@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { getProduct } from "../../utils/getProduct";
 import { getImage } from "../../utils/getImage";
 import CartItem from "../CartItem/CartItem";
+import Button from "../Button/Button";
 
 const CartList = () => {
     const navigate = useNavigate();
@@ -93,12 +94,14 @@ const CartList = () => {
                 </ul>
             )}
 
-            <button
+            <Button
                 onClick={handleOrder}
-                disabled={cartItems.length === 0 || ordering}
+                type="dark"
+                text="Place Order"
+                mode={cartItems.length === 0 || ordering}
             >
                 <h3>{ordering ? 'Placing Order...' : 'Place Order'}</h3>
-            </button>
+            </Button>
         </div>
     );
 };

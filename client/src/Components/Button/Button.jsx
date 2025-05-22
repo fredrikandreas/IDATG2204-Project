@@ -17,8 +17,7 @@ const Button = ({ type, text, path, onClick, mode }) => {
         <button
             className={className}
             onClick={handleClick}
-            disabled={mode === 'disabled'}
-            style={{cursor: mode === 'disabled' ? 'not-allowed' : 'pointer'}}
+            disabled={mode}
         >
         <h3>{text}</h3>
       </button>

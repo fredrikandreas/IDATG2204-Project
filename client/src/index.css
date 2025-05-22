@@ -16,6 +16,10 @@
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
+*:disabled {
+  cursor: not-allowed;
+}
+
 body {
   background-color: var(--primary-dark);
   color: var(--primary-light);

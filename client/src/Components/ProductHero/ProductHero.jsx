@@ -70,9 +70,9 @@ const ProductHero = () => {
                     </ProductItem>
 
                     <div className="quantity-selector">
-                        <button onClick={handleDecrease} disabled={quantity === 1}>-</button>
-                        <span>{quantity}</span>
-                        <button onClick={handleIncrease} disabled={quantity >= product["stock_quantity"]}>+</button>
+                        <button onClick={handleDecrease} disabled={quantity === 1}><h3>-</h3></button>
+                        <span><h3>{quantity}</h3></span>
+                        <button onClick={handleIncrease} disabled={quantity >= product["stock_quantity"]}><h3>+</h3></button>
                     </div>
 
                     <div className="button-wrap">
@@ -80,7 +80,7 @@ const ProductHero = () => {
                             type="dark"
                             text={product["stock_quantity"] === 0 ? 'Sold out' : `Add to cart →` }
                             onClick={() => handleAddToCart()}
-                            mode={product["stock_quantity"] === 0 ? 'disabled' : 'enabled' }
+                            mode={product["stock_quantity"] === 0 }
                         />
                     </div>
                 </div>

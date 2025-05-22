@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const productsRoute = require('./routes/products');
-const setupRoute = require('./routes/setup');
 const orderRoute = require('./routes/order');
 const brandRoute = require('./routes/brand');
 const categoryRoute = require('./routes/category');
@@ -18,7 +17,6 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/api", authRoutes);
 app.use('/api/products', productsRoute);
-app.use('/api/setup', setupRoute);
 app.use('/api/order', orderRoute);
 app.use('/api/brand', brandRoute);
 app.use('/api/category', categoryRoute);

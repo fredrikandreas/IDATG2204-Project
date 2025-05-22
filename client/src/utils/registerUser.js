@@ -2,13 +2,14 @@ import { BACKEND_URL, PATH_REGISTER } from "./constants";
 
 export const registerUser = async (username,
                                    password,
-                                   email, firstName,
-                                   lastName,
+                                   email,
+                                   first_name,
+                                   last_name,
                                    street,
                                    city,
-                                   postcode,
-                                   phoneNumber,
-                                   dateOfBirth,
+                                   postal_code,
+                                   phone_number,
+                                   date_of_birth,
                                    ) => {
     let api_url = BACKEND_URL + PATH_REGISTER;
 
@@ -19,13 +20,13 @@ export const registerUser = async (username,
             username,
             password,
             email,
-            firstName,
-            lastName,
+            first_name,
+            last_name,
             street,
             city,
-            postcode,
-            phoneNumber,
-            dateOfBirth,
+            postal_code,
+            phone_number,
+            date_of_birth,
         }),
     });
     const data = await res.json();

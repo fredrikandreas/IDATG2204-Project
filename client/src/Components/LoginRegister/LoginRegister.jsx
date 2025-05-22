@@ -34,14 +34,6 @@ const LoginRegister = ({ mode }) => {
         const { ok, data } = await loginUser(
             username,
             password,
-            email,
-            firstName,
-            lastName,
-            street,
-            city,
-            postcode,
-            phoneNumber,
-            dateOfBirth,
         );
         setLoading(false);
         if (ok && data.token) {
@@ -59,9 +51,19 @@ const LoginRegister = ({ mode }) => {
 
     const handleRegister = async (e) => {
         e.preventDefault();
-        console.log(dateOfBirth);
         setLoading(true);
-        const { ok, data } = await registerUser(username, password, email);
+        const { ok, data } = await registerUser(
+            username,
+            password,
+            email,
+            firstName,
+            lastName,
+            street,
+            city,
+            postcode,
+            phoneNumber,
+            dateOfBirth,
+        );
         setLoading(false);
         if (ok) {
             setError(false);

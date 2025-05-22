@@ -131,7 +131,7 @@ const Category = ({ onFilter }) => {
             <div className="cat apply-filter">
                 <Button
                     type={filterApplied ? "dark" : "light"}
-                    text={filterApplied ? "Clear" : loading ? "Loading..." : "Apply filter →"}
+                    text={filterApplied ? "Clear" : loading ? "Loading..." : "Apply filter"}
                     onClick={handleButtonClick}
                     mode={loading}
                 />

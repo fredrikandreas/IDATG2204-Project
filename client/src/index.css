@@ -4,6 +4,15 @@
   --secondary-light: #BDF2AE;
   --secondary-dark: #2B3040;
   --contrast: #EDF252;
+
+  /*
+  --primary-light: #1b2029;
+  --primary-dark: #d6d6d6;
+  --secondary-light: #2B3040;
+  --secondary-dark: #ffff;
+  --contrast: #EF4357;
+  */
+
   --transparent: rgba(0, 0, 0, 0);
   --transparent-light: rgba(255, 255, 255, 0.2);
   --transparent-dark: rgba(0, 0, 0, 0.2);

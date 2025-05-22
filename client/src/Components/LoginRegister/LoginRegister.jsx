@@ -179,7 +179,7 @@ const LoginRegister = ({ mode }) => {
                     </h3>
                 </button>
             </form>
-            <h3 style={{color: error ? 'red' : 'green'}}>{message}</h3>
+            <h3>{message}</h3>
         </div>
     );
 };

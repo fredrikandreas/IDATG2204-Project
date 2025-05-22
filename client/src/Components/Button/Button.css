@@ -6,9 +6,11 @@ button {
     padding: 5px;
     border: 1px solid;
     border-radius: 4px;
+    transition: box-shadow 0.1s ease-in-out;
 }
 
 button:not(:disabled):hover  {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
     cursor: pointer;
 }
 
@@ -34,23 +36,10 @@ button:disabled {
     border-color: var(--secondary-light);
 }
 
-
-.dark:not(:disabled):hover {
-    background-color: var(--transparent);
-    border-color: var(--secondary-light);
-    color: var(--secondary-light);
-}
-
 .light {
     background-color: var(--transparent);
     border-color: var(--secondary-light);
     color: var(--secondary-light);
-}
-
-.light:not(:disabled):hover {
-    background-color: var(--secondary-light);
-    border-color: var(--secondary-light);
-    color: var(--primary-dark);
 }
 
 

@@ -1,6 +1,7 @@
 import React from "react";
 import "./CartItem.css";
 import { deleteProduct } from "../../utils/deleteProduct";
+import Button from "../Button/Button";
 
 const CartItem = React.memo(({ id, name, price, description, quantity, onDelete }) => {
     const removeProduct = () => {
@@ -25,7 +26,7 @@ const CartItem = React.memo(({ id, name, price, description, quantity, onDelete 
             </div>
             <div className="cart-item-handle">
                 <h2>{quantity}</h2>
-                <button type="button" onClick={removeProduct}>X</button>
+                <Button type="dark" text="X" onClick={removeProduct}/>
             </div>
         </div>
     );

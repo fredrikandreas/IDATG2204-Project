@@ -42,7 +42,7 @@ const Navbar = () => {
                     </li>
                     <li>
                         <Link className={menu === 'cart' ? 'nav-link current-page' : 'nav-link'} to={'/cart'}><h3>Cart</h3></Link>
-                        <div className="nav-cart-count">0</div>
+                        <div style={{display: "none"}} className="nav-cart-count">0</div>
                     </li>
                 </ul>
                 <div className='nav-login'>

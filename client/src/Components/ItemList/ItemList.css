@@ -13,7 +13,11 @@
     aspect-ratio: 4 / 5;
     width: 100%;
     text-decoration: none;
-    color: var(--primary-light)
+    color: var(--primary-light);
+}
+
+.item-wrapper:active {
+    transform: scale(0.95);
 }
 
 .info {

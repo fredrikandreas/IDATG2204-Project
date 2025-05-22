@@ -14,6 +14,13 @@ In the root directory, run:
 docker-compose up --build
 ```
 
+### Deployed URL's
+Frontend: `http://localhost:3000`
+
+Backend: `http://localhost:8080`
+
+Database-interface: `http://localhost:8080`
+
 ## Project description
 **ElectroMart** is a new company selling a wide range of electronic products, including for example:
 - Smartphones

@@ -3,17 +3,20 @@
     flex-direction: column;
     justify-content: center;
     height: fit-content;
+    gap: 24px;
     width: 240px;
     min-width: 160px;
-    background-color: var(--primary-dark);
+    background-color: var(--secondary-dark);
+    padding: 24px 16px;
+    border-radius: 0;
 }
 
 .cat {
-    border-top: 1px solid var(--secondary-dark);
     display: flex;
     flex-direction: column;
-    padding: 14px 32px;
+    padding: 4px 12px;
     gap: 12px;
+    border-left: 1px solid var(--primary-light);
 }
 
 .filter {
@@ -29,14 +32,13 @@
 }
 
 .apply-filter {
-    height: 70px;
+    height: 40px;
 }
 
 select {
     padding: 6px;
-    background-color: var(--secondary-dark);
-    border: none;
-    border-radius: 4px;
+    border: 1px solid var(--primary-light);
+    border-radius: 0;
     color: var(--primary-light);
     cursor: pointer;
 }

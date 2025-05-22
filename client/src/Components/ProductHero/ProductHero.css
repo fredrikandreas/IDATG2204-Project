@@ -24,8 +24,8 @@
 .quantity-selector button {
     padding: 5px 10px;
     font-size: 18px;
-    border-radius: 50%;
-    border-color: var(--transparent);
+    background-color: darkgrey;
+    border: none;
 }
 
 .quantity-selector span {

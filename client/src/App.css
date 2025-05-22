@@ -53,4 +53,9 @@ section {
   section .category-container {
     width: 180px;
   }
+
+  section .login-container {
+    width: 400px;
+    padding: 64px 70px;
+  }
 }

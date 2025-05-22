@@ -70,9 +70,9 @@ const ProductHero = () => {
                     </ProductItem>
 
                     <div className="quantity-selector">
-                        <button onClick={handleDecrease} disabled={quantity === 1}><h3>-</h3></button>
+                        <Button type="dark" text="-" onClick={handleDecrease} mode={quantity === 1}></Button>
                         <span><h3>{quantity}</h3></span>
-                        <button onClick={handleIncrease} disabled={quantity >= product["stock_quantity"]}><h3>+</h3></button>
+                        <Button type="dark" text="+" onClick={handleIncrease} mode={quantity >= product["stock_quantity"]}></Button>
                     </div>
 
                     <div className="button-wrap">

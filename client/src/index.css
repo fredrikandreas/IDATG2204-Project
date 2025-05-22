@@ -1,17 +1,18 @@
 :root {
+  /*
   --primary-light: #ededed;
   --primary-dark: #1b2029;
   --secondary-light: #BDF2AE;
   --secondary-dark: #2B3040;
   --contrast: #EDF252;
 
-  /*
+   */
+
   --primary-light: #1b2029;
-  --primary-dark: #d6d6d6;
+  --primary-dark: #efefef;
   --secondary-light: #2B3040;
   --secondary-dark: #ffff;
   --contrast: #EF4357;
-  */
 
   --transparent: rgba(0, 0, 0, 0);
   --transparent-light: rgba(255, 255, 255, 0.2);
@@ -31,6 +32,11 @@
 
 body {
   background-color: var(--primary-dark);
+  /*
+  background-image: url('./Components/Assets/bg_pattern.png');
+  background-repeat: repeat;
+  background-attachment: fixed;
+   */
   color: var(--primary-light);
   padding: 0;
   margin: 0;

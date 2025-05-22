@@ -75,10 +75,7 @@ const Category = ({ onFilter }) => {
 
     return (
         <div className='category-container'>
-            <h2 className='filter'>
-                <div className='filter-icon'>≓</div>
-                Filter
-            </h2>
+            <h2>Filter</h2>
 
             <div className="cat type">
                 <label htmlFor="select-category"><h3>Category</h3></label>
@@ -128,9 +125,9 @@ const Category = ({ onFilter }) => {
                 </select>
             </div>
 
-            <div className="cat apply-filter">
+            <div className="apply-filter">
                 <Button
-                    type={filterApplied ? "dark" : "light"}
+                    type={filterApplied ? "light" : "dark"}
                     text={filterApplied ? "Clear" : loading ? "Loading..." : "Apply filter"}
                     onClick={handleButtonClick}
                     mode={loading}

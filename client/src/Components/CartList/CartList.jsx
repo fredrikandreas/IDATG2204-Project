@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './CartList.css';
 import { getCart } from "../../utils/getCart";
 import { orderCart } from "../../utils/orderCart";
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { getProduct } from "../../utils/getProduct";
 import { getImage } from "../../utils/getImage";
 import CartItem from "../CartItem/CartItem";
@@ -77,9 +77,10 @@ const CartList = () => {
             ) : cartItems.length === 0 ? (
                 <h3>No items in cart.</h3>
             ) : (
-                <ul className="cart-list">
+                <ul>
                     {cartItems.map((item) => (
                         <li key={item["product_id"]} className="cart-list">
+
                             <CartItem
                                 id={item["product_id"]}
                                 image={getImage(item["image_path"])}
@@ -97,10 +98,9 @@ const CartList = () => {
             <Button
                 onClick={handleOrder}
                 type="dark"
-                text="Place Order"
+                text={ordering ? 'Placing Order...' : 'Place Order'}
                 mode={cartItems.length === 0 || ordering}
             >
-                <h3>{ordering ? 'Placing Order...' : 'Place Order'}</h3>
             </Button>
         </div>
     );

@@ -47,7 +47,7 @@ const Navbar = () => {
                 </ul>
                 <div className='nav-login'>
                     {isLoggedIn() ? (
-                        <Button text="Logout" onClick={() => logout(navigate)} />
+                        <Button type='dark' text="Logout" onClick={() => logout(navigate)} />
                     ) : (
                         <>
                              <Button type='light' text='Login' path='/login' />

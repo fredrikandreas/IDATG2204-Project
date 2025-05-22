@@ -1,7 +1,6 @@
 .featured {
     display: flex;
     flex-direction: column;
-    background-color: var(--primary-dark);
 }
 
 .featured-container {
@@ -13,6 +12,6 @@
 
 .category-sticky {
     position: sticky;
-    top: 40px;
+    top: 50px;
     align-self: flex-start;
 }

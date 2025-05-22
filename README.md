@@ -19,7 +19,7 @@ Frontend: `http://localhost:3000`
 
 Backend: `http://localhost:8080`
 
-Database-interface: `http://localhost:8080`
+Database-interface: `http://localhost:5050`
 
 ## Project description
 **ElectroMart** is a new company selling a wide range of electronic products, including for example:

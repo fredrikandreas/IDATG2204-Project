@@ -21,7 +21,7 @@ app.use('/api/order', orderRoute);
 app.use('/api/brand', brandRoute);
 app.use('/api/category', categoryRoute);
 
-const PORT = process.env.PORT || 5050;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

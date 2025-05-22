@@ -1,6 +1,13 @@
 # IDATG2204-Project
 Semester Project: E-Commerce Website Database Implementation
 
+# Run project
+Prerequisites: Docker and Docker compose is installed.
+Note: You might need sudo or be an administrator.
+This has to be run on localhost
+Inside the root folder run this command:
+docker-compose up --build
+
 # Project description
 New electronics selling company ElectroMart has hired you as their new database engineer. They offer wide range of electronic products, including smartphones, laptops, tablets, cameras, home appliances, and accessories. The company aims to provide an efficient and user-friendly online shopping experience to it customers. 
  
